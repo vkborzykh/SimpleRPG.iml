@@ -10,7 +10,7 @@ public class MainApplication {
         // ................................................................
         // Имя Героя
         System.out.println("Введите имя Героя:");
-        String heroName=sc.nextLine();
+        String heroName = sc.nextLine();
         // Класс Героя
         System.out.println("""
                 Введите класс Героя:
@@ -20,13 +20,13 @@ public class MainApplication {
                 4. [Случайный выбор класса]
                 """);
         int heroClass = sc.nextInt();
-        while (heroClass<1 || heroClass >4) {
+        while (heroClass < 1 || heroClass > 4) {
             System.out.println("Введите корректный номер (1-4).");
             heroClass = sc.nextInt();
         }
-        if (heroClass == 4){
+        if (heroClass == 4) {
             game.diceMessage();
-            heroClass = game.randomizer(3)+1;
+            heroClass = game.randomizer(3) + 1;
             System.out.println("Результат случайного выбора:");
         }
         switch (heroClass) {
@@ -50,27 +50,27 @@ public class MainApplication {
         game.pause();
         // ................................................................
         // (2) СЛУЧАЙНЫЙ ВЫБОР ПРОТИВНИКА
-        switch (game.randomizer(3)){ // бросаем кубик для выбора класса противника
+        switch (game.randomizer(3)) { // бросаем кубик для выбора класса противника
             case 0 -> enemy = new Rogue(); // Разбойник
             case 1 -> enemy = new BlackMage(); // Чёрный маг
             case 2 -> enemy = new Pyromaniac(); // Культист-пироман
             default -> throw new IllegalStateException("Unexpected value: " + game.randomizer(3));
         }
         System.out.println("Таинственный силуэт крадется во мраке подземелья." +
-                "\nПриглядевшись, " + heroName + " различает очертания " +enemy.className+". Бой неизбежен.");
+                "\nПриглядевшись, " + heroName + " различает очертания " + enemy.className + ". Бой неизбежен.");
         game.pause();
         // ................................................................
         // (3) НАЧАЛО БОЯ
         game.diceMessage();
         int attacker = game.randomizer(2);
 
-        switch (attacker){
-            case 0-> {
-                System.out.println("Волей судьбы "+ hero.name + " оказывается проворнее и ходит первым.");
+        switch (attacker) {
+            case 0 -> {
+                System.out.println("Волей судьбы " + hero.name + " оказывается проворнее и ходит первым.");
                 hero.heroesDecision(hero, enemy);
             }
             case 1 -> {
-                System.out.println("Похоже, "+hero.name+" не смог перехватить инициативу. Ход "+enemy.className+".");
+                System.out.println("Похоже, " + hero.name + " не смог перехватить инициативу. Ход " + enemy.className + ".");
                 enemy.enemyDecision(hero, enemy);
 
             }

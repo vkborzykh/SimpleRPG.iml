@@ -4,8 +4,9 @@ public class Rogue extends Unit {
         attack = 5;
         className = "разбойника";
     }
+
     @Override
-    public void attack (Unit hero, Unit enemy){
+    public void attack(Unit hero, Unit enemy) {
         ranTemp = ran.nextInt(6);
         if (ranTemp == 2 && hero.knockedOut) {
             ranTemp = ran.nextInt(2);
@@ -21,23 +22,22 @@ public class Rogue extends Unit {
             }
             case 2 -> {
                 System.out.println("Разбойник атакует выпадом с круговой подсечкой. ");
-                if (hero.className.equals("палладин")){
+                if (hero.className.equals("палладин")) {
                     System.out.println("Палладин неуязвим к атакам данного типа.");
-                }
-                else if (ranTemp == 0){
-                hero.knockedOut = true;}
-                else System.out.println("Герою удаётся увернуться от подсечки.");
+                } else if (ranTemp == 0) {
+                    hero.knockedOut = true;
+                } else System.out.println("Герою удаётся увернуться от подсечки.");
             }
             case 3 -> {
                 System.out.println("Разбойник совершает обманный маневр и атакует исподтишка. ");
-                if (hero.hp < (hero.fullHp/2)){
+                if (hero.hp < (hero.fullHp / 2)) {
                     System.out.println("Поскольку у Героя осталось <50% очков здоровья, ему нанесен крит. урон.");
                     hero.hp -= attack / (ran.nextInt(2) + 2);
                 }
                 hero.hp -= attack / (ran.nextInt(2) + 2);
             }
             case 4 -> {
-                System.out.println("Разбойник входит в клинч, изматывая Героя. Теперь "+ hero.name+" наносит на 1 ед. меньше урона.");
+                System.out.println("Разбойник входит в клинч, изматывая Героя. Теперь " + hero.name + " наносит на 1 ед. меньше урона.");
                 hero.hp--;
                 hero.attack--;
             }
@@ -47,8 +47,9 @@ public class Rogue extends Unit {
             }
         }
     }
+
     @Override
-    public void defence(Unit hero, Unit enemy){
+    public void defence(Unit hero, Unit enemy) {
         System.out.println("Разбойник меняет стойку и переводит дух.");
         hp++;
     }

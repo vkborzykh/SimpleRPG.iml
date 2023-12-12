@@ -1,19 +1,19 @@
-public class Assassin extends Unit{
+public class Assassin extends Unit {
     public Assassin() {
         fullHp = hp = 9;
         attack = 4;
-        className="ассассин";
-        classDescription= "Ассассины - гильдия скрытных убийц:\n" +
-                "они склонны держаться в тени и не привычны к открытым сражениям ("+attack+ " DMG),\n"+
+        className = "ассассин";
+        classDescription = "Ассассины - гильдия скрытных убийц:\n" +
+                "они склонны держаться в тени и не привычны к открытым сражениям (" + attack + " DMG),\n" +
                 "однако их клинки с точностью поражают уязвимые места противника (CRT DMG х2).\n" +
-                "Герой-ассассин может питаться тёмной энергией, получая по единице к здоровью и силе атаки.\n"+
+                "Герой-ассассин может питаться тёмной энергией, получая по единице к здоровью и силе атаки.\n" +
                 "Удары Героя никогда не промахиваются по врагу, а однажды за игру он может обратиться\n" +
                 "в ядовитое облако, нанося врагу урон и заставляя последнего пропустить свой ход.\n";
     }
 
     @Override
     public String printDescription() {
-        return name+" - ассассин. "+classDescription;
+        return name + " - ассассин. " + classDescription;
     }
 
     @Override
@@ -45,34 +45,33 @@ public class Assassin extends Unit{
                 heroesDecision(hero, enemy);
             }
         }
-        System.out.println(line+hero.currentState(hero,enemy)+"\n"+line);
+        System.out.println(line + hero.currentState(hero, enemy) + "\n" + line);
         pause();
         enemy.enemyDecision(hero, enemy);
     }
-    public void attack (Unit hero, Unit enemy){
+
+    public void attack(Unit hero, Unit enemy) {
         System.out.println("""
-                    Выберите тип атаки:
-                    1. Пронзить врага ядовитым клинком
-                    2. Одурманить врага пугающей иллюзией
-                    3. [Вернуться назад]""");
+                Выберите тип атаки:
+                1. Пронзить врага ядовитым клинком
+                2. Одурманить врага пугающей иллюзией
+                3. [Вернуться назад]""");
         ranTemp = ran.nextInt(10);
         switch (sc.nextInt()) {
             case 1 -> {
-                if(ranTemp <= 4) {
-                    System.out.println("Ассассин "+hero.name+" попадает по уязвимому месту "+ enemy.className+"\n" +
+                if (ranTemp <= 4) {
+                    System.out.println("Ассассин " + hero.name + " попадает по уязвимому месту " + enemy.className + "\n" +
                             "и наносит ему критический урон.");
-                    enemy.takeDamage(attack+2);
-                }
-                else {
+                    enemy.takeDamage(attack + 2);
+                } else {
                     enemy.takeDamage(attack);
                 }
             }
             case 2 -> {
-                if (ranTemp >= 4){
+                if (ranTemp >= 4) {
                     System.out.println("Враг замирает, парализованный ужасом.");
                     enemy.knockedOut = true;
-                }
-                else System.out.println("Врагу удается сфокусируется на битве. Иллюзия исчезает.");
+                } else System.out.println("Врагу удается сфокусируется на битве. Иллюзия исчезает.");
             }
             case 3 -> heroesDecision(hero, enemy);
             default -> { // Невалидный ввод возвращает к выбору
@@ -81,23 +80,24 @@ public class Assassin extends Unit{
             }
         }
     }
-    public void defence () {
-        if (hp<fullHp){
+
+    public void defence() {
+        if (hp < fullHp) {
             System.out.println("Герой насыщается потусторонней энергией, получая прибавку к здоровью и силе.");
-            hp ++;
-        }
-        else System.out.println("Герой насыщается потусторонней энергией, получая только прибавку к силе.");
+            hp++;
+        } else System.out.println("Герой насыщается потусторонней энергией, получая только прибавку к силе.");
         attack++;
     }
+
     @Override
-    public void skip (Unit hero, Unit enemy){
+    public void skip(Unit hero, Unit enemy) {
         super.skip(hero, enemy);
         enemy.enemyDecision(hero, enemy);
     }
 
     public void poisonousFog(Unit hero, Unit enemy) {
-        System.out.println(hero.name+" принимает форму газообразного облака и заставляет "+enemy.className+" задыхаться. Враг парализован.");
-        enemy.hp -= ran.nextInt(4)+1; // враг получает 1-5 ед. урона
+        System.out.println(hero.name + " принимает форму газообразного облака и заставляет " + enemy.className + " задыхаться. Враг парализован.");
+        enemy.hp -= ran.nextInt(4) + 1; // враг получает 1-5 ед. урона
         enemy.knockedOut = true;
         classActionUsed = true;
     }

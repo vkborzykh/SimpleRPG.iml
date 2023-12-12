@@ -31,13 +31,12 @@ public class BlackMage extends Unit {
             case 4 -> {
                 System.out.println("Маг перевоплощается гигантскую летучую мышь и пытается укусить героя. ");
                 System.out.println("[Бросок кубика]");
-                if (ran.nextInt(10) >= 4){
+                if (ran.nextInt(10) >= 4) {
                     System.out.println("Крылатое чудовище истощает Героя и насыщается его кровью.");
                     hero.hp -= 2;
                     hero.attack -= 2;
                     enemy.hp++;
-                }
-                else System.out.println("Герой не подпускает к себе назойливое чудовище и готовится к контратаке.");
+                } else System.out.println("Герой не подпускает к себе назойливое чудовище и готовится к контратаке.");
             }
             case 5 -> {
                 System.out.println("Маг поднимает в воздух каменную глыбу и наносит телекинетический удар по Герою. ");
